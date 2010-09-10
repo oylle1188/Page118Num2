@@ -8,20 +8,21 @@
         Dim dblPastDue As Double = 0
         Dim dblPayments As Double = 0
         Dim dblPurchases As Double = 0
-        Dim dblFinanceChargers As Double = (dblPastDue - dblPayments) / 1.5 / 100
-        Dim dblCurrentBalance As Double = dblPastDue - dblPayments + dblPurchases + dblFinanceChargers
+        Dim fmtStr As String = "{0,-15}{1,15}{2,15}{3,15}{4,15}{5,15}"
+        
 
         strName = sr.ReadLine
         dblPastDue = sr.ReadLine
         dblPayments = sr.ReadLine
         dblPurchases = sr.ReadLine
-        dblFinanceChargers = sr.ReadLine
-        dblCurrentBalance = sr.ReadLine
 
-        lstAccountSummary.Items.Add(strName & dblPastDue & dblPayments & dblPurchases & dblFinanceChargers & dblCurrentBalance)
+        Dim dblNewBalance As Double = (dblPastDue - dblPayments)
+        Dim dblFinanceChargers As Double = (dblNewBalance * 1.015) - dblNewBalance
+        Dim dblCurrentBalance As Double = (dblNewBalance + dblPurchases + dblFinanceChargers)
 
-
-
+        lstAccountSummary.Items.Clear()
+        lstAccountSummary.Items.Add(String.Format(fmtStr, "Account", "Past Due", "", "", "Finance", "Current"))
+        'lstAccountSummary.Items.Add(strName & FormatCurrency(dblPastDue, 2) & FormatCurrency(dblPayments, 2) & FormatCurrency(dblPurchases, 2) & FormatCurrency(dblFinanceChargers, 2) & FormatCurrency(dblCurrentBalance, 2))
 
     End Sub
 End Class
